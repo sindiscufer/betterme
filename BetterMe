@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moj boljši dan</title>
+  <meta name="description" content="Digitalna spremljevalka za majhne zdrave navade, motivacijo in boljši dan." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #faf6f0;
+      --bg-soft: #fdf0f4;
+      --card: #ffffff;
+      --text: #2c1a1e;
+      --muted: #8a7070;
+      --line: rgba(44, 26, 30, 0.10);
+      --pink: #e8829a;
+      --pink-dark: #d4537e;
+      --pink-light: #fdf0f4;
+      --gold: #c9923a;
+      --gold-light: #fdf8ec;
+      --green: #1d9e75;
+      --green-light: #e1f5ee;
+      --violet: #7f77dd;
+      --violet-light: #eeedfe;
+      --danger: #e24b4a;
+      --shadow: 0 16px 45px rgba(232, 130, 154, 0.13);
+      --shadow-soft: 0 6px 20px rgba(44, 26, 30, 0.06);
+      --radius-lg: 30px;
+      --radius-md: 22px;
+      --radius-sm: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "DM Sans", sans-serif;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(232, 130, 154, 0.16), transparent 32rem),
+        radial-gradient(circle at top right, rgba(201, 146, 58, 0.12), transparent 32rem),
+        linear-gradient(135deg, var(--bg), var(--bg-soft));
+    }
+
+    button,
+    input,
+    textarea,
+    select {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .app {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px;
+      padding-bottom: 48px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .logo {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(30px, 5vw, 44px);
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .logo span {
+      color: var(--pink);
+      font-style: italic;
+    }
+
+    .tagline {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .pill {
+      border: 1px solid rgba(232, 130, 154, 0.22);
+      background: rgba(255,255,255,0.72);
+      color: var(--pink-dark);
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .button {
+      border: none;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-weight: 700;
+      background: var(--pink);
+      color: #fff;
+      transition: transform 0.18s ease, background 0.18s ease, opacity 0.18s ease;
+    }
+
+    .button:hover {
+      background: var(--pink-dark);
+      transform: translateY(-1px);
+    }
+
+    .button.secondary {
+      background: #fff;
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    .button.secondary:hover {
+      background: var(--pink-light);
+    }
+
+    .button.gold {
+      background: var(--gold);
+    }
+
+    .button.ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--line);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 22px;
+      align-items: stretch;
+      margin-bottom: 22px;
+    }
+
+    .panel {
+      background: rgba(255,255,255,0.86);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.76);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 30px;
+    }
+
+    .date {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(38px, 7vw, 66px);
+      line-height: 0.95;
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      margin-bottom: 16px;
+    }
+
+    h1 em,
+    .section-title em {
+      color: var(--pink);
+      font-style: italic;
+    }
+
+    .daily-quote {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--pink-light);
+      color: var(--pink-dark);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 700;
+      margin-bottom: 22px;
+    }
+
+    .checkin-title,
+    .section-title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 30px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+    }
+
+    .moods {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .mood {
+      min-width: 68px;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 20px;
+      padding: 12px 10px;
+      font-size: 24px;
+      transition: 0.18s ease;
+    }
+
+    .mood small {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .mood.active,
+    .mood:hover {
+      background: var(--pink);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    .mood.active small,
+    .mood:hover small {
+      color: rgba(255,255,255,0.86);
+    }
+
+    .lumi-card {
+      background: linear-gradient(135deg, rgba(253,240,244,0.96), rgba(253,248,236,0.96));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lumi-card::after {
+      content: "✦";
+      position: absolute;
+      right: 28px;
+      top: 22px;
+      color: rgba(232,130,154,0.22);
+      font-size: 84px;
+      line-height: 1;
+    }
+
+    .lumi-label {
+      position: relative;
+      z-index: 1;
+      color: var(--pink-dark);
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .lumi-message {
+      position: relative;
+      z-index: 1;
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 18px;
+    }
+
+    .lumi-sub {
+      position: relative;
+      z-index: 1;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 34rem;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 22px;
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-self: start;
+      position: sticky;
+      top: 20px;
+    }
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.76);
+      color: var(--text);
+      border-radius: 18px;
+      padding: 14px 16px;
+      text-align: left;
+      font-weight: 700;
+      box-shadow: var(--shadow-soft);
+      transition: 0.18s ease;
+    }
+
+    .nav-btn.active,
+    .nav-btn:hover {
+      border-color: rgba(232,130,154,0.30);
+      background: var(--pink-light);
+      color: var(--pink-dark);
+      transform: translateY(-1px);
+    }
+
+    .content {
+      min-width: 0;
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.88);
+      border: 1px solid rgba(255,255,255,0.78);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 28px;
+      margin-bottom: 22px;
+    }
+
+    .card-sub {
+      color: var(--muted);
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+
+    .habits {
+      display: grid;
+      gap: 12px;
+    }
+
+    .habit {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--bg);
+      border: 1px solid transparent;
+      border-radius: 20px;
+      padding: 16px;
+      transition: 0.18s ease;
+    }
+
+    .habit input {
+      width: 22px;
+      height: 22px;
+      accent-color: var(--pink);
+      flex: 0 0 auto;
+    }
+
+    .habit strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .habit span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .habit.done {
+      background: var(--green-light);
+      border-color: rgba(29,158,117,0.18);
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .mini-stat {
+      border-radius: 20px;
+      background: var(--bg);
+      padding: 18px;
+      text-align: center;
+    }
+
+    .mini-stat strong {
+      display: block;
+      font-size: 28px;
+      color: var(--pink-dark);
+      margin-bottom: 2px;
+    }
+
+    .mini-stat span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .routine-grid {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 8px;
+    }
+
+    .routine-day {
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--muted);
+      border-radius: 15px;
+      min-height: 52px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .routine-day.done {
+      background: var(--green-light);
+      color: var(--green);
+      border-color: rgba(29,158,117,0.20);
+    }
+
+    .routine-day.today {
+      background: var(--pink);
+      color: #fff;
+      border-color: var(--pink);
+      box-shadow: 0 8px 18px rgba(232,130,154,0.24);
+    }
+
+    .routine-day.locked {
+      opacity: 0.58;
+    }
+
+    .input-area {
+      width: 100%;
+      min-height: 120px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 16px;
+      background: #fff;
+      color: var(--text);
+      resize: vertical;
+      line-height: 1.55;
+      outline-color: var(--pink);
+    }
+
+    .ai-result {
+      display: none;
+      margin-top: 16px;
+      border-radius: 20px;
+      background: var(--gold-light);
+      border: 1px solid rgba(201,146,58,0.18);
+      padding: 18px;
+      line-height: 1.6;
+    }
+
+    .ai-result.show {
+      display: block;
+    }
+
+    .progress-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .progress-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 12px;
+      align-items: center;
+      background: var(--bg);
+      border-radius: 18px;
+      padding: 15px;
+    }
+
+    .progress-icon {
+      font-size: 24px;
+    }
+
+    .progress-row strong {
+      display: block;
+    }
+
+    .progress-row span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .plus-card {
+      background: linear-gradient(135deg, var(--gold-light), var(--pink-light));
+      border: 1px solid rgba(201,146,58,0.24);
+    }
+
+    .locked-feature {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+      border-bottom: 1px solid rgba(44,26,30,0.08);
+      padding: 14px 0;
+    }
+
+    .locked-feature:last-child {
+      border-bottom: 0;
+    }
+
+    .lock {
+      color: var(--gold);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%) translateY(16px);
+      opacity: 0;
+      background: var(--text);
+      color: #fff;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-weight: 700;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+      pointer-events: none;
+      transition: 0.24s ease;
+      z-index: 20;
+      max-width: calc(100vw - 32px);
+      text-align: center;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(44,26,30,0.34);
+      z-index: 30;
+      padding: 20px;
+      place-items: center;
+    }
+
+    .modal-backdrop.show {
+      display: grid;
+    }
+
+    .modal {
+      width: min(540px, 100%);
+      background: #fff;
+      border-radius: 30px;
+      box-shadow: 0 28px 80px rgba(44,26,30,0.24);
+      padding: 28px;
+    }
+
+    .modal h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .modal p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .quote-list {
+      display: grid;
+      gap: 10px;
+      max-height: 420px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .quote-item {
+      background: var(--bg);
+      border-radius: 18px;
+      padding: 14px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .layout,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .routine-grid {
+        grid-template-columns: repeat(6, 1fr);
+      }
+    }
+
+    @media (max-width: 620px) {
+      .app {
+        padding: 16px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .top-actions {
+        justify-content: flex-start;
+      }
+
+      .panel,
+      .card {
+        padding: 22px;
+        border-radius: 24px;
+      }
+
+      .sidebar,
+      .mini-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .routine-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .mood {
+        flex: 1 1 72px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">Moj <span>boljši dan</span></div>
+        <div class="tagline">Digitalna spremljevalka za majhne zdrave navade.</div>
+      </div>
+
+      <div class="top-actions">
+        <div class="pill" id="trialPill">7 dni Lumi+ brezplačno</div>
+        <button class="button secondary" type="button" id="openQuotes">Lumiina knjižnica</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="panel">
+        <div class="date" id="todayDate"></div>
+        <h1>Danes je lahko <em>boljši dan</em>.</h1>
+        <div class="daily-quote" id="dailyQuote">🌸 Danes naredi nekaj zase.</div>
+
+        <div>
+          <div class="checkin-title">Kako se danes počutiš?</div>
+          <div class="moods" id="moods">
+            <button class="mood" type="button" data-mood="super">😊<small>super</small></button>
+            <button class="mood" type="button" data-mood="mirno">😌<small>mirno</small></button>
+            <button class="mood" type="button" data-mood="ok">😐<small>ok</small></button>
+            <button class="mood" type="button" data-mood="tezko">😔<small>težko</small></button>
+            <button class="mood" type="button" data-mood="utrujeno">😴<small>utrujeno</small></button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="panel lumi-card">
+        <div class="lumi-label">💬 Lumi pravi</div>
+        <div class="lumi-message" id="lumiMessage">Ni treba narediti vsega. Dovolj je, da danes narediš eno stvar zase.</div>
+        <p class="lumi-sub" id="lumiSub">Lumi je tvoja nežna AI spremljevalka. Kasneje bo znala prilagoditi spodbude glede na tvoje navade, počutje in cilje.</p>
+      </aside>
+    </section>
+
+    <div class="layout">
+      <nav class="sidebar" aria-label="Glavna navigacija">
+        <button class="nav-btn active" type="button" data-page="home">🏠 Domov</button>
+        <button class="nav-btn" type="button" data-page="face">🧘 Face Yoga</button>
+        <button class="nav-btn" type="button" data-page="food">🥗 Hrana</button>
+        <button class="nav-btn" type="button" data-page="move">🚶 Gibanje</button>
+        <button class="nav-btn" type="button" data-page="path">🌱 Moja pot</button>
+        <button class="nav-btn" type="button" data-page="plus">✨ Lumi+</button>
+      </nav>
+
+      <main class="content">
+        <section class="page active" id="page-home">
+          <div class="card">
+            <h2 class="section-title">Današnji mali koraki</h2>
+            <p class="card-sub">Izberi samo toliko, kolikor zmoreš danes. Tudi ena kljukica šteje.</p>
+
+            <div class="habits" id="habits">
+              <label class="habit">
+                <input type="checkbox" data-habit="water">
+                <span><strong>Popij kozarec vode</strong><span>Začni nežno in preprosto.</span></span>
+              </label>
+
+              <label class="habit">
+                <input type="checkbox" data-habit="face">
+                <span><strong>5 minut Face Yoge</strong><span>Mala rutina za svež obraz.</span></span>
+              </label>
+
+              <label class="habit">
+                <input type="checkbox" data-habit="move">
+                <span><strong>20 minut gibanja</strong><span>Sprehod, kolo, raztezanje ali karkoli šteje.</span></span>
+              </label>
+
+              <label class="habit">
+                <input type="checkbox" data-habit="food">
+                <span><strong>Pojej nekaj hranljivega</strong><span>Ne popoln jedilnik. Samo ena dobra odločitev.</span></span>
+              </label>
+            </div>
+
+            <button class="button" type="button" id="selfCareBtn">🌸 Naredi nekaj zase</button>
+
+            <div class="mini-grid">
+              <div class="mini-stat"><strong id="doneCount">0/4</strong><span>koraki danes</span></div>
+              <div class="mini-stat"><strong id="streakCount">1</strong><span>dni zapored</span></div>
+              <div class="mini-stat"><strong id="totalGoodSteps">0</strong><span>dobrih korakov</span></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="section-title">Današnji ritual</h2>
+            <p class="card-sub">To je osnovni dnevni tok aplikacije. Kasneje lahko dodava opomnike, koledar in personalizirane Lumi predloge.</p>
+            <div class="progress-list">
+              <div class="progress-row"><div class="progress-icon">🌸</div><div><strong>Check-in</strong><span>Kako si danes?</span></div><div>1 min</div></div>
+              <div class="progress-row"><div class="progress-icon">✅</div><div><strong>Mali koraki</strong><span>Izberi 1–4 stvari zase.</span></div><div>2 min</div></div>
+              <div class="progress-row"><div class="progress-icon">💬</div><div><strong>Lumi</strong><span>Nežna spodbuda brez občutka krivde.</span></div><div>ves dan</div></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="page" id="page-face">
+          <div class="card">
+            <h2 class="section-title">30-dnevni <em>Face Yoga</em> program</h2>
+            <p class="card-sub">Namesto kataloga vaj: preprost program po dnevih. Uporabnik ve, kaj je naslednji korak.</p>
+            <div class="routine-grid" id="routineGrid"></div>
+            <button class="button" type="button" id="finishFace">Zaključi današnjo rutino</button>
+          </div>
+
+          <div class="card">
+            <h2 class="section-title">Današnja vaja</h2>
+            <p class="card-sub">5 minut: nežno tapkanje pod očmi, limfna drenaža in sprostitev čeljusti.</p>
+            <div class="progress-list">
+              <div class="progress-row"><div class="progress-icon">1</div><div><strong>Tapkanje pod očmi</strong><span>30 sekund, zelo nežno.</span></div><div>👁️</div></div>
+              <div class="progress-row"><div class="progress-icon">2</div><div><strong>Limfna drenaža</strong><span>Od sredine obraza proti ušesom.</span></div><div>🌿</div></div>
+              <div class="progress-row"><div class="progress-icon">3</div><div><strong>Sprostitev čeljusti</strong><span>Počasen vdih in izdih.</span></div><div>😌</div></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="page" id="page-food">
+          <div class="card">
+            <h2 class="section-title">Hrana brez <em>kompliciranja</em></h2>
+            <p class="card-sub">Za MVP je to samo simulacija. Kasneje bo tukaj prava AI analiza obroka ali fotografije.</p>
+            <textarea class="input-area" id="foodText" placeholder="npr. ovseni kosmiči z banano, kava z mlekom, solata s tofujem ..."></textarea>
+            <button class="button" type="button" id="analyzeFood">Analiziraj obrok</button>
+            <div class="ai-result" id="foodResult"></div>
+          </div>
+        </section>
+
+        <section class="page" id="page-move">
+          <div class="card">
+            <h2 class="section-title">Gibanje</h2>
+            <p class="card-sub">Tukaj ni pritiska. Aplikacija predlaga možnost glede na počutje.</p>
+            <div class="two-col">
+              <div class="progress-row"><div class="progress-icon">😴</div><div><strong>Nežen dan</strong><span>10–20 minut sprehoda ali raztezanja.</span></div><div></div></div>
+              <div class="progress-row"><div class="progress-icon">🔥</div><div><strong>Močnejši dan</strong><span>30–45 minut vadbe ali kolesa.</span></div><div></div></div>
+            </div>
+            <button class="button" type="button" id="finishMove">Zabeleži današnje gibanje</button>
+          </div>
+        </section>
+
+        <section class="page" id="page-path">
+          <div class="card">
+            <h2 class="section-title">Moja <em>pot</em></h2>
+            <p class="card-sub">Napredek naj ne bo samo številka na tehtnici. Naj bo dokaz, da skrbiš zase.</p>
+            <div class="mini-grid">
+              <div class="mini-stat"><strong id="pathSteps">0</strong><span>dobrih korakov</span></div>
+              <div class="mini-stat"><strong id="pathCheckins">0</strong><span>check-inov</span></div>
+              <div class="mini-stat"><strong id="pathFace">0</strong><span>Face Yoga rutin</span></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="section-title">Lumiin povzetek</h2>
+            <p class="card-sub" id="pathSummary">Vsaka kljukica je dokaz, da skrbiš zase. Nadaljuj z majhnimi koraki.</p>
+          </div>
+        </section>
+
+        <section class="page" id="page-plus">
+          <div class="card plus-card">
+            <h2 class="section-title">Lumi+</h2>
+            <p class="card-sub">Predlog monetizacije: osnovni del ostane brezplačen, Lumi+ pa odklene personalizirano izkušnjo.</p>
+            <div class="locked-feature"><div><strong>Neomejeni pogovori z Lumi</strong><br><span class="card-sub">Osebne spodbude, prilagojene tvojemu dnevu.</span></div><div class="lock">5,99 €/mesec</div></div>
+            <div class="locked-feature"><div><strong>AI analiza obrokov</strong><br><span class="card-sub">Besedilo ali fotografija obroka.</span></div><div class="lock">Plus</div></div>
+            <div class="locked-feature"><div><strong>Celoten 30-dnevni Face Yoga program</strong><br><span class="card-sub">Rutine, timerji, napredek.</span></div><div class="lock">Plus</div></div>
+            <div class="locked-feature"><div><strong>Pametni opomniki in koledar</strong><br><span class="card-sub">Kasnejša integracija z Google/Apple koledarjem.</span></div><div class="lock">Kasneje</div></div>
+            <button class="button gold" type="button" id="startTrial">Začni 7-dnevni preizkus</button>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="quotesModal" role="dialog" aria-modal="true" aria-labelledby="quotesTitle">
+    <div class="modal">
+      <h2 id="quotesTitle">Lumiina knjižnica</h2>
+      <p>Prvi nabor slovenskih misli. Kasneje jih lahko naložiš v bazo, označiš po kategorijah in jih prikazuješ glede na počutje.</p>
+      <div class="quote-list" id="quoteList"></div>
+      <div class="modal-actions">
+        <button class="button" type="button" id="closeQuotes">Zapri</button>
+        <button class="button secondary" type="button" id="newQuote">Prikaži novo misel</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" aria-live="polite"></div>
+
+  <script>
+    const STORAGE_KEY = "mojBoljsiDan_v1";
+
+    const quotes = [
+      { text: "Danes naredi nekaj zase.", category: "motivacija" },
+      { text: "Vsak dan 1 % bolj zdrava.", category: "navade" },
+      { text: "Majhne navade. Velike spremembe.", category: "vztrajnost" },
+      { text: "En majhen korak je še vedno korak.", category: "nežnost" },
+      { text: "Popolnost ni cilj. Doslednost je.", category: "vztrajnost" },
+      { text: "Telo si zapomni skrb, ne popolnosti.", category: "telo" },
+      { text: "Ne potrebuješ popolnega dneva. Potrebuješ samo en dober korak.", category: "nežnost" },
+      { text: "Če si danes utrujena, izberi nežnost namesto pritiska.", category: "počutje" },
+      { text: "Skrb zase ni nagrada. Je osnova.", category: "samopodoba" },
+      { text: "Boljši dan se začne z majhno odločitvijo.", category: "motivacija" },
+      { text: "Tudi počitek je del napredka.", category: "počitek" },
+      { text: "Ni ti treba začeti znova. Samo nadaljuj.", category: "vztrajnost" }
+    ];
+
+    const lumiMessages = {
+      super: "To je čudovito. Izkoristi ta občutek za eno majhno zmago danes. 🌞",
+      mirno: "Mir je odličen začetek. Danes samo nežno nadaljuj. 🌿",
+      ok: "Tudi običajen dan je lahko boljši dan. Začni z enim korakom. 🌸",
+      tezko: "Žal mi je, da je danes težji dan. Danes je dovolj že ena majhna stvar zase.",
+      utrujeno: "Danes ne potrebuješ popolnega treninga. Poskusi samo z vodo, dihom in petimi minutami nežnosti."
+    };
+
+    const defaultState = {
+      lastDate: "",
+      habits: {},
+      mood: "",
+      totalGoodSteps: 0,
+      checkins: 0,
+      faceRoutines: 0,
+      moveSessions: 0,
+      streak: 1,
+      trialStarted: false
+    };
+
+    let state = loadState();
+
+    function todayKey() {
+      return new Date().toISOString().slice(0, 10);
+    }
+
+    function loadState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        const merged = { ...defaultState, ...saved };
+
+        if (merged.lastDate !== todayKey()) {
+          merged.lastDate = todayKey();
+          merged.habits = {};
+          merged.mood = "";
+        }
+
+        return merged;
+      } catch {
+        return { ...defaultState, lastDate: todayKey() };
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2600);
+    }
+
+    function setQuote() {
+      const index = Math.floor(Math.random() * quotes.length);
+      const quote = quotes[index];
+      document.getElementById("dailyQuote").textContent = "🌸 " + quote.text;
+    }
+
+    function updateDate() {
+      const now = new Date();
+      document.getElementById("todayDate").textContent = now.toLocaleDateString("sl-SI", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      });
+    }
+
+    function updateHabitsUI() {
+      let done = 0;
+
+      document.querySelectorAll(".habit").forEach(label => {
+        const input = label.querySelector("input");
+        const key = input.dataset.habit;
+        input.checked = Boolean(state.habits[key]);
+
+        if (input.checked) {
+          label.classList.add("done");
+          done++;
+        } else {
+          label.classList.remove("done");
+        }
+      });
+
+      document.getElementById("doneCount").textContent = done + "/4";
+      document.getElementById("totalGoodSteps").textContent = state.totalGoodSteps;
+      document.getElementById("streakCount").textContent = state.streak;
+      document.getElementById("pathSteps").textContent = state.totalGoodSteps;
+      document.getElementById("pathCheckins").textContent = state.checkins;
+      document.getElementById("pathFace").textContent = state.faceRoutines;
+
+      const summary = done >= 4
+        ? "Danes si naredila vse štiri male korake. To ni popolnost — to je skrb zase v praksi."
+        : done > 0
+          ? "Danes že imaš dokaz, da skrbiš zase. Nadaljuj nežno, brez pritiska."
+          : "Vsaka kljukica je dokaz, da skrbiš zase. Začni z najmanjšo možno stvarjo.";
+
+      document.getElementById("pathSummary").textContent = summary;
+    }
+
+    function bindHabits() {
+      document.querySelectorAll(".habit input").forEach(input => {
+        input.addEventListener("change", () => {
+          const key = input.dataset.habit;
+          const wasDone = Boolean(state.habits[key]);
+
+          state.habits[key] = input.checked;
+
+          if (input.checked && !wasDone) {
+            state.totalGoodSteps++;
+            showToast("Bravo. En dober korak več. 🌸");
+          }
+
+          if (!input.checked && wasDone && state.totalGoodSteps > 0) {
+            state.totalGoodSteps--;
+          }
+
+          saveState();
+          updateHabitsUI();
+
+          const done = Object.values(state.habits).filter(Boolean).length;
+          if (done === 4) {
+            document.getElementById("lumiMessage").textContent = "Poglej to. Danes si naredila vse štiri male korake. To je tvoj boljši dan. 🌸";
+          }
+        });
+      });
+    }
+
+    function bindMoods() {
+      document.querySelectorAll(".mood").forEach(button => {
+        if (button.dataset.mood === state.mood) {
+          button.classList.add("active");
+          document.getElementById("lumiMessage").textContent = lumiMessages[state.mood];
+        }
+
+        button.addEventListener("click", () => {
+          document.querySelectorAll(".mood").forEach(btn => btn.classList.remove("active"));
+          button.classList.add("active");
+
+          if (!state.mood) {
+            state.checkins++;
+          }
+
+          state.mood = button.dataset.mood;
+          document.getElementById("lumiMessage").textContent = lumiMessages[state.mood];
+
+          saveState();
+          updateHabitsUI();
+          showToast("Check-in shranjen. 💛");
+        });
+      });
+    }
+
+    function bindNavigation() {
+      document.querySelectorAll(".nav-btn").forEach(button => {
+        button.addEventListener("click", () => {
+          document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.remove("active"));
+          document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
+
+          button.classList.add("active");
+          document.getElementById("page-" + button.dataset.page).classList.add("active");
+        });
+      });
+    }
+
+    function buildRoutineGrid() {
+      const grid = document.getElementById("routineGrid");
+      grid.innerHTML = "";
+
+      for (let i = 1; i <= 30; i++) {
+        const day = document.createElement("div");
+        day.className = "routine-day";
+
+        if (i <= state.faceRoutines) {
+          day.classList.add("done");
+          day.textContent = "✓ " + i;
+        } else if (i === state.faceRoutines + 1) {
+          day.classList.add("today");
+          day.textContent = "Dan " + i;
+        } else {
+          day.classList.add("locked");
+          day.textContent = "🔒 " + i;
+        }
+
+        grid.appendChild(day);
+      }
+    }
+
+    function bindActions() {
+      document.getElementById("selfCareBtn").addEventListener("click", () => {
+        document.getElementById("lumiMessage").textContent = "Začni z najmanjšo stvarjo. Kozarec vode. En globok vdih. Pet minut zase.";
+        showToast("Lumi ti je izbrala najmanjši prvi korak. 🌸");
+      });
+
+      document.getElementById("finishFace").addEventListener("click", () => {
+        if (state.faceRoutines < 30) {
+          state.faceRoutines++;
+          state.habits.face = true;
+          state.totalGoodSteps++;
+          saveState();
+          buildRoutineGrid();
+          updateHabitsUI();
+          showToast("Face Yoga rutina zaključena. ✨");
+        }
+      });
+
+      document.getElementById("finishMove").addEventListener("click", () => {
+        state.moveSessions++;
+        state.habits.move = true;
+        state.totalGoodSteps++;
+        saveState();
+        updateHabitsUI();
+        showToast("Gibanje zabeleženo. 🚶");
+      });
+
+      document.getElementById("analyzeFood").addEventListener("click", () => {
+        const text = document.getElementById("foodText").value.trim();
+        const result = document.getElementById("foodResult");
+
+        if (!text) {
+          showToast("Najprej napiši, kaj si jedla. 🥗");
+          return;
+        }
+
+        state.habits.food = true;
+        state.totalGoodSteps++;
+        saveState();
+        updateHabitsUI();
+
+        result.classList.add("show");
+        result.innerHTML = "<strong>AI osnutek analize:</strong><br>Obrok je shranjen kot dobra odločitev. V pravi verziji bo Lumi ocenila kalorije, beljakovine in predlagala majhno izboljšavo — brez obsojanja.";
+        showToast("Obrok zabeležen. 🥗");
+      });
+
+      document.getElementById("startTrial").addEventListener("click", () => {
+        state.trialStarted = true;
+        saveState();
+        document.getElementById("trialPill").textContent = "Lumi+ preizkus aktiven";
+        showToast("Lumi+ preizkus aktiviran. ✨");
+      });
+    }
+
+    function bindQuotesModal() {
+      const modal = document.getElementById("quotesModal");
+      const list = document.getElementById("quoteList");
+
+      function renderQuotes() {
+        list.innerHTML = "";
+        quotes.forEach(quote => {
+          const item = document.createElement("div");
+          item.className = "quote-item";
+          item.innerHTML = "<strong>" + quote.text + "</strong><br><small>Kategorija: " + quote.category + "</small>";
+          list.appendChild(item);
+        });
+      }
+
+      document.getElementById("openQuotes").addEventListener("click", () => {
+        renderQuotes();
+        modal.classList.add("show");
+      });
+
+      document.getElementById("closeQuotes").addEventListener("click", () => {
+        modal.classList.remove("show");
+      });
+
+      modal.addEventListener("click", event => {
+        if (event.target === modal) {
+          modal.classList.remove("show");
+        }
+      });
+
+      document.getElementById("newQuote").addEventListener("click", () => {
+        setQuote();
+        showToast("Nova Lumiina misel je prikazana zgoraj. 🌸");
+      });
+    }
+
+    function init() {
+      if (!state.lastDate) {
+        state.lastDate = todayKey();
+      }
+
+      if (state.trialStarted) {
+        document.getElementById("trialPill").textContent = "Lumi+ preizkus aktiven";
+      }
+
+      updateDate();
+      setQuote();
+      bindHabits();
+      bindMoods();
+      bindNavigation();
+      bindActions();
+      bindQuotesModal();
+      buildRoutineGrid();
+      updateHabitsUI();
+      saveState();
+    }
+
+    init();
+  </script>
+</body>
+</html>

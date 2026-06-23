@@ -4,31 +4,31 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Moj boljši dan</title>
-  <meta name="description" content="Digitalna spremljevalka za majhne zdrave navade, motivacijo in boljši dan." />
+  <meta name="description" content="Tvoja dnevna doza energije, navad in nežne motivacije." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #faf6f0;
-      --bg-soft: #fdf0f4;
+      --bg: #f7f4ed;
+      --bg-soft: #eef7f2;
       --card: #ffffff;
-      --text: #2c1a1e;
-      --muted: #8a7070;
-      --line: rgba(44, 26, 30, 0.10);
-      --pink: #e8829a;
-      --pink-dark: #d4537e;
-      --pink-light: #fdf0f4;
-      --gold: #c9923a;
-      --gold-light: #fdf8ec;
-      --green: #1d9e75;
-      --green-light: #e1f5ee;
-      --violet: #7f77dd;
-      --violet-light: #eeedfe;
+      --text: #26322d;
+      --muted: #6f7f77;
+      --line: rgba(38, 50, 45, 0.11);
+      --pink: #e97962;
+      --pink-dark: #c95d49;
+      --pink-light: #fff1ec;
+      --gold: #b98a3d;
+      --gold-light: #fff8e8;
+      --green: #2f9b73;
+      --green-light: #e6f5ee;
+      --violet: #677f74;
+      --violet-light: #eef5f1;
       --danger: #e24b4a;
-      --shadow: 0 16px 45px rgba(232, 130, 154, 0.13);
-      --shadow-soft: 0 6px 20px rgba(44, 26, 30, 0.06);
+      --shadow: 0 18px 50px rgba(47, 77, 65, 0.10);
+      --shadow-soft: 0 8px 22px rgba(38, 50, 45, 0.06);
       --radius-lg: 30px;
       --radius-md: 22px;
       --radius-sm: 16px;
@@ -45,12 +45,12 @@
     }
 
     body {
-      font-family: "DM Sans", sans-serif;
+      font-family: "Inter", sans-serif;
       min-height: 100vh;
       color: var(--text);
       background:
-        radial-gradient(circle at top left, rgba(232, 130, 154, 0.16), transparent 32rem),
-        radial-gradient(circle at top right, rgba(201, 146, 58, 0.12), transparent 32rem),
+        radial-gradient(circle at top left, rgba(47, 155, 115, 0.14), transparent 34rem),
+        radial-gradient(circle at top right, rgba(233, 121, 98, 0.13), transparent 32rem),
         linear-gradient(135deg, var(--bg), var(--bg-soft));
     }
 
@@ -87,15 +87,15 @@
     }
 
     .logo {
-      font-family: "Cormorant Garamond", serif;
+      font-family: "Playfair Display", serif;
       font-size: clamp(30px, 5vw, 44px);
       font-weight: 500;
       line-height: 1;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.04em;
     }
 
     .logo span {
-      color: var(--pink);
+      color: var(--green);
       font-style: italic;
     }
 
@@ -182,8 +182,8 @@
     }
 
     h1 {
-      font-family: "Cormorant Garamond", serif;
-      font-size: clamp(38px, 7vw, 66px);
+      font-family: "Playfair Display", serif;
+      font-size: clamp(40px, 7vw, 70px);
       line-height: 0.95;
       font-weight: 500;
       letter-spacing: -0.04em;
@@ -192,7 +192,7 @@
 
     h1 em,
     .section-title em {
-      color: var(--pink);
+      color: var(--green);
       font-style: italic;
     }
 
@@ -210,7 +210,7 @@
 
     .checkin-title,
     .section-title {
-      font-family: "Cormorant Garamond", serif;
+      font-family: "Playfair Display", serif;
       font-size: 30px;
       font-weight: 500;
       letter-spacing: -0.02em;
@@ -253,7 +253,7 @@
     }
 
     .lumi-card {
-      background: linear-gradient(135deg, rgba(253,240,244,0.96), rgba(253,248,236,0.96));
+      background: linear-gradient(135deg, rgba(230,245,238,0.96), rgba(255,248,232,0.96));
       position: relative;
       overflow: hidden;
     }
@@ -279,7 +279,7 @@
     .lumi-message {
       position: relative;
       z-index: 1;
-      font-family: "Cormorant Garamond", serif;
+      font-family: "Playfair Display", serif;
       font-size: clamp(28px, 4vw, 42px);
       line-height: 1.1;
       letter-spacing: -0.03em;
@@ -591,7 +591,7 @@
     }
 
     .modal h2 {
-      font-family: "Cormorant Garamond", serif;
+      font-family: "Playfair Display", serif;
       font-size: 36px;
       margin-bottom: 10px;
     }
@@ -684,7 +684,7 @@
     <header class="topbar">
       <div class="brand">
         <div class="logo">Moj <span>boljši dan</span></div>
-        <div class="tagline">Digitalna spremljevalka za majhne zdrave navade.</div>
+        <div class="tagline">Tvoja dnevna doza energije, navad in nežne motivacije.</div>
       </div>
 
       <div class="top-actions">
@@ -696,7 +696,7 @@
     <section class="hero">
       <div class="panel">
         <div class="date" id="todayDate"></div>
-        <h1>Danes je lahko <em>boljši dan</em>.</h1>
+        <h1>Danes naredi <em>nekaj zase</em>.</h1>
         <div class="daily-quote" id="dailyQuote">🌸 Danes naredi nekaj zase.</div>
 
         <div>
@@ -713,7 +713,7 @@
 
       <aside class="panel lumi-card">
         <div class="lumi-label">💬 Lumi pravi</div>
-        <div class="lumi-message" id="lumiMessage">Ni treba narediti vsega. Dovolj je, da danes narediš eno stvar zase.</div>
+        <div class="lumi-message" id="lumiMessage">Začni z enim dobrim občutkom. Včasih je prav majhen korak tisti, ki spremeni dan.</div>
         <p class="lumi-sub" id="lumiSub">Lumi je tvoja nežna AI spremljevalka. Kasneje bo znala prilagoditi spodbude glede na tvoje navade, počutje in cilje.</p>
       </aside>
     </section>
@@ -872,12 +872,12 @@
       { text: "Majhne navade. Velike spremembe.", category: "vztrajnost" },
       { text: "En majhen korak je še vedno korak.", category: "nežnost" },
       { text: "Popolnost ni cilj. Doslednost je.", category: "vztrajnost" },
-      { text: "Telo si zapomni skrb, ne popolnosti.", category: "telo" },
-      { text: "Ne potrebuješ popolnega dneva. Potrebuješ samo en dober korak.", category: "nežnost" },
-      { text: "Če si danes utrujena, izberi nežnost namesto pritiska.", category: "počutje" },
+      { text: "Vsaka dobra odločitev šteje.", category: "telo" },
+      { text: "En dober korak lahko spremeni občutek celega dne.", category: "nežnost" },
+      { text: "Danes izberi korak, ki ti da energijo.", category: "počutje" },
       { text: "Skrb zase ni nagrada. Je osnova.", category: "samopodoba" },
-      { text: "Boljši dan se začne z majhno odločitvijo.", category: "motivacija" },
-      { text: "Tudi počitek je del napredka.", category: "počitek" },
+      { text: "Tvoja najboljša verzija se gradi v majhnih korakih.", category: "motivacija" },
+      { text: "Začni z enim dobrim občutkom.", category: "počitek" },
       { text: "Ni ti treba začeti znova. Samo nadaljuj.", category: "vztrajnost" }
     ];
 
@@ -885,8 +885,8 @@
       super: "To je čudovito. Izkoristi ta občutek za eno majhno zmago danes. 🌞",
       mirno: "Mir je odličen začetek. Danes samo nežno nadaljuj. 🌿",
       ok: "Tudi običajen dan je lahko boljši dan. Začni z enim korakom. 🌸",
-      tezko: "Žal mi je, da je danes težji dan. Danes je dovolj že ena majhna stvar zase.",
-      utrujeno: "Danes ne potrebuješ popolnega treninga. Poskusi samo z vodo, dihom in petimi minutami nežnosti."
+      tezko: "Tudi če dan ni idealen, lahko izbereš eno stvar, ki te dvigne. Začniva majhno.",
+      utrujeno: "Danes izberi lahek začetek: voda, svež zrak ali pet minut zase. To je dovolj za premik."
     };
 
     const defaultState = {
@@ -1076,8 +1076,8 @@
 
     function bindActions() {
       document.getElementById("selfCareBtn").addEventListener("click", () => {
-        document.getElementById("lumiMessage").textContent = "Začni z najmanjšo stvarjo. Kozarec vode. En globok vdih. Pet minut zase.";
-        showToast("Lumi ti je izbrala najmanjši prvi korak. 🌸");
+        document.getElementById("lumiMessage").textContent = "Začni z nečim, kar ti da dober občutek. Voda, svež zrak ali pet minut zase.";
+        showToast("Lumi ti je izbrala prvi dober korak. 🌿");
       });
 
       document.getElementById("finishFace").addEventListener("click", () => {

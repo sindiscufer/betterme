@@ -1,154 +1,100 @@
-          document.querySelectorAll(".mood").forEach(btn => btn.classList.remove("active"));
-          button.classList.add("active");
-          if (!state.mood) state.checkins++;
-          state.mood = button.dataset.mood;
-          saveState();
-          updateHabitsUI();
-          renderMoodFeedback(state.mood);
-          showToast("Počutje je shranjeno. 💛");
-        });
-      });
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fbf8f2">
+  <title>Moj boljši dan</title>
+  <meta name="description" content="Tvoja dnevna doza energije, navad in nežne motivacije.">
 
-      if (state.mood) renderMoodFeedback(state.mood);
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
 
-      document.getElementById("responseCta").addEventListener("click", () => {
-        document.querySelector(".steps-card").scrollIntoView({ behavior: "smooth", block: "start" });
-        showToast("Izberi en mali korak, ki ti danes najbolj ustreza. ✨");
-      });
+  <style>
+    :root {
+      --cream: #fbf8f2;
+      --cream-2: #f5efe5;
+      --paper: #fffdf9;
+      --ink: #244a43;
+      --ink-soft: #55706b;
+      --muted: #7b8885;
+      --sage: #80a98c;
+      --sage-deep: #5d8e70;
+      --sage-pale: #edf3e9;
+      --blush: #f18a87;
+      --blush-pale: #fff0ed;
+      --gold: #efad47;
+      --gold-pale: #fff4df;
+      --lilac: #8e80cf;
+      --lilac-pale: #f1edfb;
+      --blue-pale: #eaf4ff;
+      --line: rgba(51, 72, 66, .1);
+      --shadow: 0 18px 48px rgba(76, 69, 55, .08);
+      --shadow-soft: 0 8px 25px rgba(76, 69, 55, .07);
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "DM Sans", system-ui, sans-serif;
+      --radius-xl: 30px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
     }
 
-    function openPage(pageName) {
-      document.querySelectorAll("[data-page-link]").forEach(btn => {
-        btn.classList.toggle("active", btn.dataset.pageLink === pageName);
-      });
-      document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
-      document.getElementById("page-" + pageName).classList.add("active");
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: var(--sans);
+      background:
+        radial-gradient(circle at 65% 3%, rgba(244, 211, 168, .2), transparent 24rem),
+        linear-gradient(115deg, #f7f2e9 0, var(--cream) 24%, #fffdf8 100%);
     }
 
-    function bindNavigation() {
-      document.querySelectorAll("[data-page-link]").forEach(button => {
-        button.addEventListener("click", () => openPage(button.dataset.pageLink));
-      });
+    button, input, textarea { font: inherit; }
+    button { cursor: pointer; }
+
+    .app-shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 224px minmax(0, 1fr);
     }
 
-    function buildRoutineGrid() {
-      const grid = document.getElementById("routineGrid");
-      grid.innerHTML = "";
-
-      for (let i = 1; i <= 30; i++) {
-        const day = document.createElement("div");
-        day.className = "routine-day";
-        if (i <= state.faceRoutines) {
-          day.classList.add("done");
-          day.textContent = "✓ " + i;
-        } else if (i === state.faceRoutines + 1) {
-          day.classList.add("today");
-          day.textContent = "Dan " + i;
-        } else {
-          day.classList.add("locked");
-          day.textContent = "🔒 " + i;
-        }
-        grid.appendChild(day);
-      }
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 34px 24px 28px;
+      border-right: 1px solid rgba(68, 78, 66, .08);
+      background: rgba(250, 247, 240, .78);
+      backdrop-filter: blur(18px);
+      z-index: 20;
+      overflow: hidden;
     }
 
-    function bindActions() {
-      document.getElementById("selfCareBtn").addEventListener("click", () => {
-        document.getElementById("lumiMessage").textContent = "Začni s kozarcem vode in nato izberi korak, ki ti da največ energije. 🌿";
-        showToast("Tvoj prvi dober korak je pripravljen. ✨");
-      });
-
-      document.getElementById("finishFace").addEventListener("click", () => {
-        if (state.faceRoutines < 30) {
-          state.faceRoutines++;
-          state.habits.face = true;
-          state.totalGoodSteps++;
-          saveState();
-          buildRoutineGrid();
-          updateHabitsUI();
-          showToast("Face Yoga rutina zaključena. Sijajno! ✨");
-        }
-      });
-
-      document.getElementById("finishMove").addEventListener("click", () => {
-        state.moveSessions++;
-        state.habits.move = true;
-        state.totalGoodSteps++;
-        saveState();
-        updateHabitsUI();
-        showToast("Gibanje zabeleženo. Nova energija je tvoja! ⚡");
-      });
-
-      document.getElementById("analyzeFood").addEventListener("click", () => {
-        const text = document.getElementById("foodText").value.trim();
-        const result = document.getElementById("foodResult");
-        if (!text) {
-          showToast("Najprej napiši, kaj je na tvojem krožniku. 🥗");
-          return;
-        }
-
-        state.habits.food = true;
-        state.totalGoodSteps++;
-        saveState();
-        updateHabitsUI();
-        result.classList.add("show");
-        result.innerHTML = "<strong>Lumiin pozitivni povzetek:</strong><br>Obrok je zabeležen kot dobra izbira. V polni različici bo Lumi ocenila hranila in predlagala majhno izboljšavo za še več energije.";
-        showToast("Obrok zabeležen. Odlična izbira! 🥗");
-      });
-
-      document.getElementById("startTrial").addEventListener("click", () => {
-        state.trialStarted = true;
-        saveState();
-        document.getElementById("trialPill").textContent = "♛  Lumi+ aktiven";
-        showToast("Lumi+ preizkus je aktiviran. ✨");
-      });
+    .sidebar::after {
+      content: "❀  ✿";
+      position: absolute;
+      left: 20px;
+      bottom: 5px;
+      color: rgba(241, 138, 135, .22);
+      font-size: 62px;
+      letter-spacing: -20px;
+      transform: rotate(-8deg);
+      pointer-events: none;
     }
 
-    function bindQuotesModal() {
-      const modal = document.getElementById("quotesModal");
-      const list = document.getElementById("quoteList");
-
-      function renderQuotes() {
-        list.innerHTML = "";
-        quotes.forEach(quote => {
-          const item = document.createElement("div");
-          item.className = "quote-item";
-          item.innerHTML = "<strong>" + quote.text + "</strong><br><small>Kategorija: " + quote.category + "</small>";
-          list.appendChild(item);
-        });
-      }
-
-      document.getElementById("openQuotes").addEventListener("click", () => {
-        renderQuotes();
-        modal.classList.add("show");
-      });
-      document.getElementById("closeQuotes").addEventListener("click", () => modal.classList.remove("show"));
-      modal.addEventListener("click", event => {
-        if (event.target === modal) modal.classList.remove("show");
-      });
-      document.getElementById("newQuote").addEventListener("click", () => {
-        setQuote(true);
-        showToast("Nova Lumiina misel je pripravljena. 🌸");
-      });
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin-bottom: 56px;
+      color: var(--ink);
     }
 
-    function init() {
-      if (!state.lastDate) state.lastDate = todayKey();
-      if (state.trialStarted) document.getElementById("trialPill").textContent = "♛  Lumi+ aktiven";
-      updateDate();
-      setQuote();
-      bindHabits();
-      bindMoods();
-      bindNavigation();
-      bindActions();
-      bindQuotesModal();
-      buildRoutineGrid();
-      updateHabitsUI();
-      saveState();
-    }
-
-    init();
-  </script>
-</body>
-</html>
+    .brand-mark {
+      width: 28px;
+      color: var(--gold);
